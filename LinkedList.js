@@ -1,4 +1,9 @@
-const _Node = ('./Node.js')
+class _Node {
+    constructor(value, next) {
+        this.value = value;
+        this.next = next;
+    }
+}
 
 class LinkedList {
     constructor() {
@@ -42,6 +47,67 @@ class LinkedList {
         }
         // Found it
         return currNode;
+    }
+
+    // findByNext(next) {
+    //     //Start at the head
+    //     let currNode = this.head;
+    //     //If the list is empty
+    //     if (!this.head) {
+    //         return null;
+    //     }
+    //     //Check for the item
+    //     while(currNode.next !== next) {
+    //         /* Return null if it's the end of the list
+    //         and the item is not on the list */
+    //         console.log({currNode: currNode, next: currNode.next.value})
+    //         if (currNode.next === null) {
+    //             return null;
+    //         } else {
+    //             //Otherwise, keep looking
+    //             currNode = currNode.next
+    //         }
+    //     }
+    //     //Found it
+    //     return currNode;
+    // }
+    
+    insertBefore(item, before) {
+        if (this.head === null) {
+            this.insertFirst(item)
+        } else {
+            let beforeNode = this.find(before)
+
+            nextNode.next = new _Node(item, beforeNode)
+        }
+    }
+
+    insertAfter(item, after) {
+        if (this.head === null) {
+            this.insertFirst(item)
+        } else {
+            let afterNode = this.find(after)
+            let nextNode = afterNode.next
+
+            afterNode.next = new _Node(item, nextNode)
+        }
+    }
+
+    insertAt(item, position) {
+        if (this.head === null) {
+            this.insertFirst(item)
+        } else {
+            let currNode = this.head;
+            let currentPosition = 0
+            while(currentPosition !== position) {
+                currentPosition++;
+                if (!currNode) {
+                    return null
+                }
+                currNode = currNode.next;
+            }
+            this.insertAfter(item, currNode.value)
+        }
     }
 
     remove(item){ 
