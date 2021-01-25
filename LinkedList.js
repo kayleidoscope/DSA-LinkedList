@@ -169,15 +169,22 @@ function isEmpty(list) {
 
 function findPrevious(item, list) {
     let currNode = list.head
+    let ticks = 0;
     if (item === currNode.value) {
         return null
     }
-    while (currNode.next.value !== item) {
-        if (currNode.next === null) {
-            return null;
-        } else {
+    if (item.next === null) {
+        while (currNode.next.value !== item.value) {
+            ticks++;
             currNode = currNode.next
-        }
+            if (currNode.next.value === item.value) {
+                break
+            }
+        }    
+    }  else if (item.next !== null) {
+        while (currNode.next.value !== item.value) {
+                currNode = currNode.next
+            }
     }
     return currNode
 }
