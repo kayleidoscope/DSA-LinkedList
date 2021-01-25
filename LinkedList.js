@@ -26,6 +26,17 @@ class LinkedList {
         }
     }
 
+    insertCycle(item, otherNode) {
+        if (this.head === null) {
+            throw new Error()
+        }
+        let tempNode = this.head
+        while(tempNode.next !== null) {
+            tempNode = tempNode.next
+        }
+        tempNode.next = new _Node(item, otherNode)
+    }
+
     find(item) { 
         // Start at the head
         let currNode = this.head;
@@ -191,6 +202,7 @@ function findPrevious(item, list) {
 
 function findLast(list) {
     let currNode = list.head
+    let length = size(list)
     if (!currNode) {
         return null
     }

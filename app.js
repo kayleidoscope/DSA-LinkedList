@@ -71,13 +71,66 @@ I don't know.
 
 // reverseList(listMaker())
 
-function thirdFromEnd(list) {
+function fromEnd(list, n) {
     let currNode = findLast(list)
-    let fromEnd = 3;
+    let fromEnd = n;
     for (let i = 0; i < fromEnd; i++) {
         currNode = findPrevious(currNode, list)
     }
     return currNode
 }
 
-console.log(thirdFromEnd(listMaker()))
+// console.log(fromEnd(listMaker(), 3))
+
+function findMiddleElement(list) {
+    let length = size(list)
+    if (length % 2 === 0) {
+        return "There are an even number of items in this list, and therefore no middle item."
+    }
+    let half = (length / 2) - 0.5
+    return fromEnd(list, half)
+}
+
+// console.log(findMiddleElement(listMaker()))
+
+function cycleListMaker() {
+    let cycledList = new LinkedList()
+
+    cycledList.insertFirst("A")
+    cycledList.insertLast("B")
+    cycledList.insertLast("C")
+    cycledList.insertLast("D")
+    let aNode = cycledList.find("A")
+    cycledList.insertCycle("E", aNode)
+
+    return cycledList
+}
+
+function isThisACycle(list) {
+    let repeat = false;
+    let currNode = list.head
+    let values = []
+    let detecting = true;
+
+    while (detecting) {
+        if (currNode.next === null) {
+            detecting = false;
+        }
+        for (let i = 0; i < values.length; i++) {
+            if (values[i] === currNode.value) {
+                repeat = true
+                detecting = false
+            }
+        }
+        let value = currNode.value
+        values.push(value)
+        currNode = currNode.next
+    }
+    if (repeat === false) {
+        return "This list does not contain a cycle."
+    } else if (repeat === true) {
+        return "This list does contain a cycle."
+    }
+}
+
+console.log(isThisACycle(cycleListMaker()))
