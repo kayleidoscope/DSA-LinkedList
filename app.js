@@ -1,4 +1,4 @@
-const LinkedList = require('./LinkedList')
+const {LinkedList, size, display, isEmpty, findPrevious, findLast} = require('./LinkedList')
 
 function main() {
     let SLL = new LinkedList()
@@ -21,7 +21,10 @@ function main() {
 
     SLL.remove("Tauhida")
 
-    console.log(SLL.find("Athena"))
+    let length = size(SLL)
+
+    console.log(findLast(SLL))
+    
 }
 
-main( )
+main()

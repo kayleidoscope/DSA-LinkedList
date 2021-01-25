@@ -138,4 +138,59 @@ class LinkedList {
     }
 }
 
-module.exports = LinkedList
+function size(list) {
+    let count = 0;
+    let node = list.head;
+    while(node) {
+        count++;
+        node = node.next
+    }
+    return count
+}
+
+function display (size, list) {
+    let length = size
+
+    let currNode = list.head
+
+    console.log(currNode)
+    for (let i = 0; i < (length - 1); i++) {
+        currNode = currNode.next
+        console.log(currNode)
+    }
+}
+
+function isEmpty(list) {
+    if (!list.head) {
+        return true;
+    }
+    return false;
+}
+
+function findPrevious(item, list) {
+    let currNode = list.head
+    if (item === currNode.value) {
+        return null
+    }
+    while (currNode.next.value !== item) {
+        if (currNode.next === null) {
+            return null;
+        } else {
+            currNode = currNode.next
+        }
+    }
+    return currNode
+}
+
+function findLast(list) {
+    let currNode = list.head
+    if (!currNode) {
+        return null
+    }
+    while (currNode.next !== null) {
+        currNode = currNode.next
+    }
+    return currNode
+}
+
+module.exports = {LinkedList, size, display, isEmpty, findPrevious, findLast}
