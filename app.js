@@ -23,11 +23,11 @@ function listMaker() {
 
     // let length = size(SLL)
 
-    SLL.insertFirst("A")
-    SLL.insertLast("B")
-    SLL.insertLast("C")
-    SLL.insertLast("D")
-    SLL.insertLast("E")
+    SLL.insertFirst("7")
+    SLL.insertLast("1")
+    SLL.insertLast("3")
+    SLL.insertLast("5")
+    SLL.insertLast("2")
 
 
     return SLL
@@ -127,10 +127,67 @@ function isThisACycle(list) {
         currNode = currNode.next
     }
     if (repeat === false) {
-        return "This list does not contain a cycle."
+        return false
     } else if (repeat === true) {
-        return "This list does contain a cycle."
+        return true
     }
 }
 
-console.log(isThisACycle(cycleListMaker()))
+// console.log(isThisACycle(cycleListMaker()))
+
+function isThisSorted(list) {
+    if (isThisACycle(list)) {
+        return "A list that contains a cycle cannot be sorted."
+    }
+    let length = size(list)
+    let currNode = list.head
+    for (let i = 0; i < length; i++) {
+        if (currNode === null || currNode.next === null) {
+            break
+        }
+        if (currNode.value > currNode.next.value) {
+            return false
+        }
+        currNode = currNode.next
+    }
+    return true
+}
+
+function sortList (list) {
+    if (isThisACycle(list)) {
+        return "A list that contains a cycle cannot be sorted."
+    }
+    let length = size(list)
+    let head = list.head
+
+    while (!isThisSorted(list)) {
+        //dealing with the head
+        if (head.value > head.next.value) {
+            newHead = head.next
+            newHeadNext = head
+            oldHeadNext = newHead.next
+            list.head = newHead
+            list.head.next = newHeadNext
+            list.head.next.next = oldHeadNext
+        }
+        let currNode = list.head.next
+        for (let i = 0; i < length; i++) {
+            if (i === 1) {
+                console.log(display(size(list), list))
+                break
+            }
+            if (currNode.value > currNode.next.value) {
+                let previousNode = findPrevious(currNode, list)
+                let nextNode = currNode.next
+                previousNode.next = nextNode
+                currNode.next = nextNode.next
+                nextNode.next = currNode
+            }
+            currNode = currNode.next
+        }
+        // console.log(display(size(list), list))
+    }
+
+}
+
+console.log(sortList(listMaker()))
